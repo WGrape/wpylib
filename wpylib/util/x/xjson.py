@@ -82,7 +82,7 @@ def stringify(data) -> str:
     :param data: 被编码的数据
     :return string
     """
-    return json.dumps(data, ensure_ascii=False)
+    return json.dumps(convert_to_jsonable(data), ensure_ascii=False)
 
 
 def extract_first_json(text: str) -> dict:
