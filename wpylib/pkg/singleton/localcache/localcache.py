@@ -52,7 +52,7 @@ class Localcache:
         :param value: log_id的值
         :return:
         """
-        key = "log_id"
+        key = "wpylib_threadkey_log_id"
         self.set_thread_local(key, value)
 
     def get_log_id(self) -> str:
@@ -60,7 +60,7 @@ class Localcache:
         获取log_idd的值
         :return:
         """
-        key = "log_id"
+        key = "wpylib_threadkey_log_id"
         log_id = self.get_thread_local(key)
         if is_none(log_id):
             log_id = ""
@@ -72,7 +72,7 @@ class Localcache:
         :param value: user_id的值
         :return:
         """
-        key = "user_id"
+        key = "wpylib_threadkey_user_id"
         self.set_thread_local(key, value)
 
     def get_user_id(self) -> int:
@@ -80,7 +80,7 @@ class Localcache:
         获取user_id
         :return: 返回user_id
         """
-        key = "user_id"
+        key = "wpylib_threadkey_user_id"
         user_id = self.get_thread_local(key)
         if is_none(user_id):
             user_id = 0
