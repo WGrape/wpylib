@@ -19,7 +19,7 @@ class StreamQueue(queue.Queue):
 
     def close(self):
         """
-        关闭
+        关闭队列
         :return:
         """
         self.join()
@@ -49,7 +49,8 @@ class StreamQueue(queue.Queue):
         :return:
         """
         raise RuntimeError(
-            "Stream cannot use put_nowait method, using send_message_nowait or send_message_end_nowait instead")
+            "Stream cannot use put_nowait method, using send_message_nowait or send_message_end_nowait instead"
+        )
 
     def send_message(self, type_str: str, item: dict = None, name="", is_show=True, block=True, timeout=None) -> float:
         """
@@ -67,7 +68,7 @@ class StreamQueue(queue.Queue):
         if is_none(item):
             item = {}
 
-        # 封装发送的消息
+        # 发送消息
         data = {
             "event": "message",
             "data": {
@@ -77,13 +78,7 @@ class StreamQueue(queue.Queue):
                 "item": item
             }
         }
-
-        # 发送消息
-        super().put(
-            item=data,
-            block=block,
-            timeout=timeout
-        )
+        super().put(item=data, block=block, timeout=timeout)
         return time.time()
 
     def send_message_end(self, data: dict, block=True, timeout=None) -> float:
@@ -96,14 +91,7 @@ class StreamQueue(queue.Queue):
         """
         if not self.running:
             raise RuntimeError("stream queue already closed.")
-        super().put(
-            {
-                'event': 'message_end',
-                'data': data
-            },
-            block,
-            timeout
-        )
+        super().put(item={"event": "message_end", "data": data}, block=block, timeout=timeout)
         self.close()
         return time.time()
 
