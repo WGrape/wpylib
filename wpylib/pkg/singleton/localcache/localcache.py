@@ -42,7 +42,7 @@ class Localcache:
         :return:
         """
         try:
-            return getattr(threading.local(), key)
+            return getattr(self._thread_local, key)
         except Exception as e:
             return None
 
