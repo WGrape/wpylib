@@ -11,10 +11,12 @@ from langchain_core.language_models.base import BaseLanguageModel
 import threading
 
 
-def get_chain_callbacks(langfuse_config: dict) -> list:
+def make_chain_callbacks(langfuse_config: dict, log_id: str = "") -> list:
     """
     获取回调函数
-    :return:
+    :param langfuse_config: langfuse配置
+    :param log_id: 日志追踪ID
+    :return: 返回回答函数列表
     """
     if "secret_key" not in langfuse_config:
         langfuse_config["secret_key"] = ""
@@ -26,9 +28,6 @@ def get_chain_callbacks(langfuse_config: dict) -> list:
         langfuse_config["trace_name"] = ""
     if "tags" not in langfuse_config:
         langfuse_config["tags"] = []
-
-    thread_local = threading.local()
-    log_id = getattr(thread_local, "wpylib_threadkey_log_id")
 
     callbacks = [
         CallbackHandler(

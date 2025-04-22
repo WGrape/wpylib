@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wpylib"
-version = "0.0.6"
+version = "0.0.7"
 description = "A simple and easy-to-use library in python"
 authors = ["Wgrape"]
 license = "MIT"

@@ -30,8 +30,7 @@ def check_login_middleware(func):
         g.context_data["login_info"]["userid"] = user["userId"]
         g.context_data["login_info"]["userId"] = user["userId"]
 
-        thread_local = threading.local()
-        setattr(thread_local, "wpylib_threadkey_user_id", user["userId"])
+        setattr(threading.local(), "wpylib_threadkey_user_id", user["userId"])
 
         # 放行
         return func(*args, **kwargs)

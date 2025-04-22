@@ -30,8 +30,7 @@ def access_middleware(func):
         log_id = get_headers("x-logid")
         if log_id == "":
             log_id = gen_random_md5()
-        thread_local = threading.local()
-        setattr(thread_local, "wpylib_threadkey_log_id", log_id)
+        setattr(threading.local(), "wpylib_threadkey_log_id", log_id)
 
         # 记录日志
         logger = logging.getLogger("wpylib_logger")
