@@ -33,9 +33,7 @@ class Localcache:
         :param value: 缓存的值
         :return:
         """
-        # 不使用类属性, 每次都是使用threading.local()实时获取本地线程数据
-        # setattr(self._thread_local, key, value)
-        setattr(threading.local(), key, value)
+        setattr(self._thread_local, key, value)
 
     def get_thread_local(self, key: Any) -> Any:
         """
