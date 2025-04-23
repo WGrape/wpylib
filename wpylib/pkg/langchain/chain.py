@@ -8,7 +8,6 @@ from langfuse.callback import CallbackHandler
 from wpylib.pkg.langchain.log_callback import LogCallback
 from langchain_core.prompts.base import BasePromptTemplate
 from langchain_core.language_models.base import BaseLanguageModel
-import threading
 
 
 def make_chain_callbacks(langfuse_config: dict, log_id: str = "") -> list:

@@ -7,7 +7,6 @@ from wpylib.util.x.xtyping import is_not_none
 from mysql.connector.pooling import MySQLConnectionPool
 import logging
 
-
 # 查询语句类型
 QUERY_TYPE_RAW: str = "raw"
 QUERY_TYPE_INSERT: str = "insert"
