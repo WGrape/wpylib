@@ -32,15 +32,12 @@ class Milvus:
 
         # 初始化embedding模型
         self._embedding_model = EmbedderFactory.create(
-            provider_name="azure_openai",
+            provider_name="ollama",
             config={
                 "model": model_config["model"],  # 如text-embedding-ada-002
-                "azure_kwargs": {
-                    "api_version": model_config["api_version"],  # 如2024-01-03-preview
-                    "azure_deployment": model_config["azure_deployment"],  # 如text-embedding-ada-002
-                    "azure_endpoint": model_config["azure_endpoint"],  # 如https://xxx.openai.azure.com/
-                    "api_key": model_config["api_key"]  # 如3e6f8...
-                }
+                "api_key": model_config["api_key"],  # 如3e6f8...
+                "embedding_dims": model_config["embedding_dims"],  # 如1536
+                "ollama_base_url": model_config["api_base"],  # 如http://localhost:11434
             }
         )
 
