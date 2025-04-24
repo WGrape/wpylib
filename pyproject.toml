@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wpylib"
-version = "0.0.9"
+version = "0.0.10"
 description = "A simple and easy-to-use library in python"
 authors = ["Wgrape"]
 license = "MIT"
@@ -8,7 +8,6 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-
 
 [build-system]
 requires = ["poetry-core"]

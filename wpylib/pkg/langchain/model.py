@@ -25,6 +25,7 @@ MODEL_TYPE_AZURE_CHAT: MODEL_TYPE = "model_type_azure_chat"
 MODEL_TYPE_ZHIPU_CHAT: MODEL_TYPE = "model_type_zhipu_chat"
 MODEL_TYPE_BAICHUAN_CHAT: MODEL_TYPE = "model_type_baichuan_chat"
 MODEL_TYPE_DOUBAO_CHAT: MODEL_TYPE = "model_type_doubao_chat"
+MODEL_TYPE_DEEPSEEK_CHAT: MODEL_TYPE = "model_type_deepseek_chat"
 
 # Embedding类型
 EMBEDDING_TYPE = str
@@ -52,8 +53,8 @@ class Model:
             **kwargs
     ):
         # 判断是否开启cost_strict: 严格消费控制, 免得调用未经费用确认的model, 造成费用开销
-        if cost_strict and model_type != MODEL_TYPE_AZURE_CHAT:
-            raise RuntimeError(f"only support AZURE_CHAT model_type: {model_type}")
+        if cost_strict and model_type != MODEL_TYPE_DEEPSEEK_CHAT:
+            raise RuntimeError(f"only support DEEPSEEK_CHAT model_type: {model_type}")
         self._model_type = model_type
 
         # 根据不同类型创建不同的Model
@@ -64,6 +65,15 @@ class Model:
                 **kwargs
             )
         elif model_type == MODEL_TYPE_DOUBAO_CHAT:
+            self._raw_model = ChatOpenAI(
+                openai_api_key=model_config["api_key"],
+                openai_api_base=model_config["api_base"],
+                model_name=model_config["model"],
+                temperature=temperature,
+                max_retries=model_config["retry"],
+                **kwargs
+            )
+        elif model_type == MODEL_TYPE_DEEPSEEK_CHAT:
             self._raw_model = ChatOpenAI(
                 openai_api_key=model_config["api_key"],
                 openai_api_base=model_config["api_base"],
