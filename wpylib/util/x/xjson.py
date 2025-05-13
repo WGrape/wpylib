@@ -95,5 +95,6 @@ def extract_first_json(text: str) -> dict:
 
     if match:
         json_content = match.group(1)
+        json_content = re.sub(r'//.*', '', json_content)  # 去除JSON中的注释
         return parse_raise(json_content)
     return {}
