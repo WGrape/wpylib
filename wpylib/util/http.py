@@ -5,6 +5,7 @@
 """
 from flask import request
 from flask import jsonify
+from wpylib.util.debug import pretty_print_request
 import requests
 
 # HTTP请求方式
@@ -67,6 +68,28 @@ def requests_get(url: str, params=None, data=None, _json=None, parse_result=True
             res = response.json()
         except Exception as e:
             raise RuntimeError(f"requests_get exception: e={e}")
+        return res
+    return response.text
+
+
+def requests_post(url, data=None, _json=None, parse_result=True, **kwargs):
+    """
+    使用requests库发起POST请求
+    :param url: 请求地址
+    :param data: 请求数据, 类型为str
+    :param _json: 请求数据, 类型为字典(即JSON). A JSON serializable Python object to send in the body of the :class:`Request`.
+    :param parse_result: 是否解析结果
+    """
+    response = requests.post(url=url, data=data, json=_json, **kwargs)
+    pretty_print_request(response)
+    if response.status_code not in [0, 200]:
+        raise RuntimeError(f"http code error: code={response.status_code} | response={response.text} | url={url}")
+
+    if parse_result:
+        try:
+            res = response.json()
+        except Exception as e:
+            raise RuntimeError(f"requests_post exception: e={e} | response={response.text}")
         return res
     return response.text
 
